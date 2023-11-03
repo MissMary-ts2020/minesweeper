@@ -10,6 +10,8 @@ int board[HEIGHT][WIDTH];//创建棋盘
 
 char board_forgame[HEIGHT][WIDTH];
 char mengban[HEIGHT][WIDTH];
+int flag = 1;//游戏继续标志，是一个全局变量
+int win = 0;//游戏结果标志
 
 void game();
 

@@ -13,5 +13,6 @@ typedef struct selection_result {
 
 
 int check_selection(int, int);
-void action(int, int, int);
-void action_flaged(int, int, int);
+void action(int, int);
+void action_flaged(int, int);
+void show_selection(int hang, int lie);
