@@ -9,7 +9,7 @@ void printmenu() {
 	printf("####################\n");
 	printf("1.开始游戏\n");
 	printf("2.结束游戏\n");
-	printf("请选择>");
+	printf("请选择(菜单1)>");
 
 
 	return;

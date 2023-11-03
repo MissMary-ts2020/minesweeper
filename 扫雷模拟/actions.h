@@ -16,3 +16,8 @@ int check_selection(int, int);
 void action(int, int);
 void action_flaged(int, int);
 void show_selection(int hang, int lie);
+
+void print_actionMenu(int action_type);
+void action_flaged(int hang, int lie);
+void action(int hang, int lie);
+void dig(int hang, int lie);

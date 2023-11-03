@@ -13,7 +13,7 @@ void game() {
 
 	int hang = 0, lie = 0;
 	
-	while (flag) {
+	while (flag_end) {
 		printf("\n请输入选定的坐标(行,列)>");
 		scanf("%d,%d", &hang, &lie);
 		fflush(stdin);//不标准的写法，稍后要改掉
@@ -44,6 +44,18 @@ void game() {
 
 		}
 		
+	}
+	//到达此处时，游戏已经结束
+	switch (win_end) {
+	case 0:
+		printf("你输了！\n");
+		break;
+	case 1:
+		printf("你赢了！！\n");
+		break;
+	default:
+		printf("error");
+		break;
 	}
 	
 

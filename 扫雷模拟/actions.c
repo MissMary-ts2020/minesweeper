@@ -7,8 +7,8 @@
 
 
 void dig(int hang, int lie) {
-	if ('0' != mengban[hang][lie]) {
-		//已经挖开，跳过
+	if ('0' != mengban[hang][lie]||mengban[hang][lie]=='F') {
+		//已经挖开或插旗，跳过
 		return;
 	}
 	mengban[hang][lie] = board_forgame[hang][lie];//先显示中心格子
@@ -19,14 +19,14 @@ void dig(int hang, int lie) {
 	int i = hang - 1, j = lie - 1;
 	for (i = hang - 1; i <= hang + 1; i++) {
 		for (j = lie - 1; j <= lie - 1; j++) {
-			//开挖标准，只要不是雷就要显示出来
+			//开挖标准，只要不是雷或者是旗子就要显示出来
 			if (j<0 || i<0 || j>WIDTH - 1 || i>HEIGHT - 1||(hang==i&&lie==j)) {
 				continue;//若格子在棋盘外则跳过
 				//以及若是中心格子就跳过
 			}
 			
-			if (mengban[i][j] = board_forgame[i][j] == ' ') {
-				//挖到的部分是空格
+			if (mengban[i][j] = board_forgame[i][j] == ' '&&mengban[i][j]!='F'&&board[i][j]!=9) {
+				//挖到的部分是空格且没有被插旗,甚至不是雷
 				dig(i, j);//对于这个空格格子进行一次开挖，递归
 			}
 		}
@@ -38,9 +38,10 @@ void action(int hang, int lie) {
 	//打印选择菜单
 	print_actionMenu(1);
 	char The_action = '0';
-	while ('1' != The_action || '2' != The_action || '3' != The_action) {
+	while ('1' != The_action && '2' != The_action && '3' != The_action) {
 		The_action = getchar();
-		if ('1' != The_action || '2' != The_action || '3' != The_action) {
+		fflush(stdin);
+		if ('1' != The_action && '2' != The_action && '3' != The_action) {
 			//提示错误信息
 			printf("选择错误，请重新选择\n");
 			print_actionMenu(1);
@@ -51,8 +52,8 @@ void action(int hang, int lie) {
 		//挖开格子
 		if (9 == board[hang][lie]) {
 			//游戏结束
-			flag = 0;
-			win = 0;
+			flag_end = 0;
+			win_end = 0;
 		}
 		else {
 			//这里是比较复杂的开挖过程,放在了外面的函数内
@@ -61,7 +62,24 @@ void action(int hang, int lie) {
 		}
 		//每次安全地挖完格子后，需要检查游戏是否胜利
 		//胜利条件为蒙版内除了雷以外的格子都被挖开
-
+		//没赢的条件为：有不是雷的格子没有被挖开
+		int i = 0, j = 0;
+		int flag_tmp = 1;
+		for (i = 0; i < HEIGHT; i++) {
+			for (j = 0; j < WIDTH; j++) {
+				if (9 != board[i][j] && '0' == mengban[i][j]) {
+					flag_tmp = 0;
+					break;
+				}
+			}
+			if (!flag_tmp) {
+				break;
+			}
+		}
+		if (flag_tmp) {
+			flag_end = 0;
+			win_end = 1;//胜利
+		}
 		break;
 	case '2':
 		//插旗
@@ -87,7 +105,17 @@ void action_flaged(int hang, int lie){
 	show_selection(hang, lie);
 	//打印选择菜单
 	print_actionMenu(2);
+	char The_action = '0';
 
+	while ('1' != The_action && '2' != The_action) {
+		The_action = getchar();
+		fflush(stdin);
+		if ('1' != The_action && '2' != The_action) {
+			//提示错误信息
+			printf("选择错误，请重新选择\n");
+			print_actionMenu(2);
+		}
+	}
 	return;
 }
 
@@ -100,7 +128,7 @@ void show_selection(int hang,int lie) {
 
 }
 
-int print_actionMenu(int action_type) {
+void print_actionMenu(int action_type) {
 	switch (action_type) {
 	case 1:
 		//未挖开
