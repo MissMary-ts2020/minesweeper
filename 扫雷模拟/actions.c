@@ -4,13 +4,7 @@
 #include "initialize.h"
 #include "actions.h"
 
-int checkthisselection(selection_result* selection) {
-	
-
-}
-
-void doingwithselection(const selection_result* selection) {
-
+int select(int hang, int lie) {
 
 }
 
