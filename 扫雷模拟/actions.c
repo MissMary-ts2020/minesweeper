@@ -4,16 +4,34 @@
 #include "initialize.h"
 #include "actions.h"
 
-int select(int hang, int lie) {
+void action(int hang, int lie, int ingredient) {
 
+	return;
 }
 
-int checkifsafe(int hang,int lie) {
-	if (hang >= 0 && hang < HEIGHT && lie >= 0 && lie < WIDTH) {
-		return 1;
+void action_flaged(int hang, int lie, int ingredient){
+    
+	return;
+}
+
+int check_selection(int hang,int lie) {
+	if (!(hang >= 0 && hang < HEIGHT && lie >= 0 && lie < WIDTH)) {
+		return 1;//越界
 	}
-	else {
-		return 0;
+	switch (mengban[hang][lie]) {
+		//通过蒙版状况的检查，来反馈
+	case '0':
+		//未挖开
+		return 2;
+		break;
+	case 'F':
+		//已插旗
+		return 3;
+		break;
+	default:
+		//已挖开
+		return 4;
+		break;
 	}
 }
 

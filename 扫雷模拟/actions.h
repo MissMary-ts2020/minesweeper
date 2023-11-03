@@ -10,6 +10,8 @@ typedef struct selection_result {
 
 }selection_result;
 
-int select(int, int);
 
-int checkifsafe(int hang, int lie);
+
+int check_selection(int, int);
+void action(int, int, int);
+void action_flaged(int, int, int);
