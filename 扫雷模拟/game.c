@@ -9,7 +9,6 @@ void game() {
 	printf("游戏开始！！\n");
 	initializeBoard();
 
-	selection_result selection;//创建选定格子对象
 	int hang = 0, lie = 0;
 	while (1) {
 		printf("\n请输入选定的坐标(行,列)>");
